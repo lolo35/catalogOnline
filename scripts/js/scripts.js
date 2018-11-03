@@ -35,3 +35,21 @@ function selectClasa(id){
     });
   });
 }
+function prezenta(id,materia){
+  console.log(id);
+  console.log(materia);
+  $("#main-content-div").hide("fold", {direction: "up"}, "slow", function(){
+    $("#main-content-div").html("");
+    $.ajax({
+      method: "GET",
+      url: "scripts/php/prezenta.php?nume=" + id + "&materia=" + materia ,
+      cache: false,
+      success: function(data){
+        $("#main-content-div").html(data);
+        $("#main-content-div").show("fold", {direction: "down"}, "slow", function(){
+
+        });
+      }
+    });
+  });
+}
