@@ -32,7 +32,7 @@ require_once 'functions.php';
 				</a>
                 <h4 id="header-text"></h4>
 				<div class="my-2 my-lg-0">
-					<img src="images/autoliv_logo.png" class="rounded img-fluid" width="150" height="50" alt="Autoliv Logo">
+					<!--<img src="images/autoliv_logo.png" class="rounded img-fluid" width="150" height="50" alt="Autoliv Logo">-->
 				</div>
 			</nav>
 		</header>

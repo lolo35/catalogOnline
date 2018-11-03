@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
-$dbname = "pontaj";
+$dbname = "catalog_online";
 $user = "root";
 $passw = "";
 

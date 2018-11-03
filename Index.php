@@ -1,5 +1,7 @@
 <?php
 include 'header.php';
+$sqlOre = "select `materie` from `ore`";
+$resOre = $conn -> query($sqlOre);
 ?>
 <script type="text/javascript" src="scripts/js/scripts.js"></script>
 <div class="container-fluid">
@@ -20,18 +22,27 @@ include 'header.php';
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-sm">
+            <div class="list-group">
+              <?php
+              while($row = $resOre -> fetch_assoc()){
+                ?>
+                <a href="#" class="list-group-item list-group-item-action" id="left-nav-<?php echo $row['materie'];?>" onclick="makeActive(this.id)"><?php echo $row['materie'];?></a>
+                <?php
+              }
+              ?>
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-sm-8">
       <div class="container-fluid">
 				<div class="row">
 					<div class="col-sm">
-						<?php
-						date_default_timezone_set('EET');
-						$date = date('Y F');
-						//echo $date;
-						?>
-						<h3 class="text-center">Pontaj AMG 3 <?php echo $date;?></h3>
+
 					</div>
 				</div>
         <div class="row">
