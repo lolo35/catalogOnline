@@ -75,3 +75,12 @@ function markAsPresent(id, clasa,sqlId){
     }
   });
 }
+function showNote(id, clasa){
+  console.log(id);
+  console.log(clasa);
+  if($("#current-" + id).is(":visible")){
+    $("#current-" + id).hide(700);
+  }else{
+    $("#current-" + id).show(700);
+  }  
+}
