@@ -3,6 +3,9 @@ session_start();
 require_once '../../conn.php';
 if(isset($_GET['nume']) && isset($_GET['materia'])){
   $nume = explode("-", $_GET['nume']);
+  $name = "select `nume` from `elevi` where `user_id` = '".$nume[0]."' limit 1";
+  $resName = $conn -> query($name);
+  $rowName = $resName -> fetch_assoc();
   $materia = $_GET['materia'];
 }
 $month = date('m');
@@ -39,7 +42,7 @@ if($first === "Sunday"){
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="#"><?php echo $nume[0];?></a>
+            <a href="#"><?php echo $rowName['nume'];?></a>
           </li>
           <li class="breadcrumb-item">
             <a href="#">Prezenta</a>
@@ -80,7 +83,8 @@ if($first === "Sunday"){
                   }else{
                     $sqlDay = $day;
                   }
-                  $getPrezenta = "select `prezenta` from `prezenta` where `nume` = '$nume[0]' and `ora` = '$materia' and `date` = '" .$year."-".$month."-". $sqlDay . "'";
+                  $getPrezenta = "select `prezenta` from `prezenta` where `user_id` = '$nume[0]' and `ora` = '$materia' and `date` = '" .$year."-".$month."-". $sqlDay . "'";
+                  //echo $getPrezenta;
                   $resGetPrezenta = $conn -> query($getPrezenta);
                   $prezenta = $resGetPrezenta -> fetch_assoc();
                   ?>

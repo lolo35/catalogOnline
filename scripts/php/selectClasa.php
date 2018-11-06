@@ -14,7 +14,7 @@ if(isset($_GET['id'])){
     <div class="row">
       <?php
       while($row = $result -> fetch_assoc()){
-        $prezentNotification = "select `prezenta` from `prezenta` where `nume` = '".$row['nume']."' and `ora` = '".$classInfo[1]."' and `date` = '".date('Y-m-d')."'";
+        $prezentNotification = "select `prezenta` from `prezenta` where `user_id` = '".$row['user_id']."' and `ora` = '".$classInfo[1]."' and `date` = '".date('Y-m-d')."'";
         //echo $prezentNotification;
         $resPrezentNotification = $conn -> query($prezentNotification);
         $prezent = $resPrezentNotification -> fetch_assoc();
@@ -28,16 +28,16 @@ if(isset($_GET['id'])){
         ?>
         <div class="col-sm-3">
           <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="images/<?php echo $row['nume'];?>.jpg" height="220" width="286" alt="<?php echo $row['nume'];?>-thumb-image">
+            <img class="card-img-top" src="images/<?php echo $row['user_id'];?>.jpg" height="220" width="286" alt="<?php echo $row['user_id'];?>-thumb-image">
             <div class="card-body">
               <h5 class="card-title"><?php echo $row['nume'];?></h5>
               <p class="card-text">Adresa: str. bla bla</p>
               <p class="card-text">Nr. tel: 555-kick ass</p>
             </div>
             <div class="list-group">
-              <a href="#" class="list-group-item list-group-item-action" id="<?php echo $row['nume'];?>-prezenta" onclick="prezenta(this.id,'<?php echo $classInfo[1];?>')">Prezenta</a>
+              <a href="#" class="list-group-item list-group-item-action" id="<?php echo $row['user_id'];?>-prezenta" onclick="prezenta(this.id,'<?php echo $classInfo[1];?>')">Prezenta</a>
               <a href="#" class="list-group-item list-group-item-action">Note</a>
-              <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between" id="<?php echo $row['nume'];?>" onclick="markAsPresent(this.id,'<?php echo $classInfo[1];?>',<?php echo $row['id'];?>)">
+              <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between" id="<?php echo $row['nume'];?>" onclick="markAsPresent(this.id,'<?php echo $classInfo[1];?>',<?php echo $row['user_id'];?>)">
                 Prezent?
                 <span class="badge"><div id="<?php echo $row['id'];?>-span"><?php echo $span;?></div></span>
               </a>

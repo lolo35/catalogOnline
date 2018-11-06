@@ -63,6 +63,7 @@ function markAsPresent(id, clasa,sqlId){
     data: {
       pontare: 1,
       nume: id,
+      user_id: sqlId,
       clasa: clasa
     },
     cache: false,
