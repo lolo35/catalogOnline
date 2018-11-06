@@ -53,3 +53,24 @@ function prezenta(id,materia){
     });
   });
 }
+function markAsPresent(id, clasa,sqlId){
+  console.log(id);
+  console.log(clasa);
+  console.log(sqlId);
+  $.ajax({
+    method: "POST",
+    url: "scripts/php/pontare.php",
+    data: {
+      pontare: 1,
+      nume: id,
+      clasa: clasa
+    },
+    cache: false,
+    success: function(data){
+      console.log(data);
+      if(data === "success"){
+        $("#" + sqlId +"-span").html("<i class='fas fa-check-circle' style='color: green; font-size: 1.4em;'></i>");
+      }
+    }
+  });
+}

@@ -1,7 +1,9 @@
 <?php
 session_start();
+require_once '../../conn.php';
 if(isset($_GET['nume']) && isset($_GET['materia'])){
-  //print_r($_GET);
+  $nume = explode("-", $_GET['nume']);
+  $materia = $_GET['materia'];
 }
 $month = date('m');
 $year = date('Y');
@@ -31,57 +33,135 @@ if($first === "Sunday"){
   $skip = 6;
 }
 ?>
-<table class="table table-sm">
-  <thead>
-    <tr>
-      <th>Luni</th>
-      <th>Marti</th>
-      <th>Miercuri</th>
-      <th>Joi</th>
-      <th>Vineri</th>
-      <th>Sambata</th>
-      <th>Duminica</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php
-    $i = 1;
-    while ($i <= $numberOfDays){
-      ?>
-      <tr>
-        <?php
-        for ($y=1; $y<=7;$y++){
-          $day = $i - $skip;
-          if($day > 0){
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#"><?php echo $nume[0];?></a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="#">Prezenta</a>
+          </li>
+          <li class="breadcrumb-item active">
+            <a href="#"><?php echo $materia;?></a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th>Luni</th>
+            <th>Marti</th>
+            <th>Miercuri</th>
+            <th>Joi</th>
+            <th>Vineri</th>
+            <th>Sambata</th>
+            <th>Duminica</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          $i = 1;
+          while ($i <= $numberOfDays){
             ?>
-            <td>
-              <div class="card" style="width: 12rem;">
-                <div class="card-body">
-                  <h5 class="card-title"><?php if($day > 0){ echo $day;}?></h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Absent</h6>
-                  <p class="card-text"></p>
-                  <p style="position: absolute; right: 10px; bottom: 2px;"><i class="fas fa-check-circle"></i></p>
-                </div>
-              </div>
-            </td>
+            <tr>
+              <?php
+              for ($y=1; $y<=7;$y++){
+                $day = $i - $skip;
+                if($day > 0){
+                  if(strlen($day) < 2){
+                    $sqlDay = 0 . $day;
+                  }else{
+                    $sqlDay = $day;
+                  }
+                  $getPrezenta = "select `prezenta` from `prezenta` where `nume` = '$nume[0]' and `ora` = '$materia' and `date` = '" .$year."-".$month."-". $sqlDay . "'";
+                  $resGetPrezenta = $conn -> query($getPrezenta);
+                  $prezenta = $resGetPrezenta -> fetch_assoc();
+                  ?>
+                  <td>
+                    <div class="card" style="width: 12rem;">
+                      <div class="card-body">
+                        <h5 class="card-title"><?php echo $day;?></h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                          <?php
+                          if($sqlDay <= date('d')){
+                            if($y != 6 && $y != 7){
+                              if($prezenta['prezenta'] == 1){
+                                echo "Prezent";
+                              }elseif($prezenta['prezenta'] == 0){
+                                echo "Absent";
+                              }
+                            }else{
+                              echo "Weekend";
+                            }
+                          }else{
+                            echo "&nbsp;";
+                          }
+                          ?>
+                        </h6>
+                        <p class="card-text"></p>
+                        <p style="position: absolute; right: 10px; bottom: 2px;">
+                          <?php
+                          if($sqlDay <= date('d')){
+                            if($y != 6 && $y != 7){
+                              if($prezenta['prezenta'] == 1){
+                                ?>
+                                <i class="fas fa-check-circle" style="color: green;"></i>
+                                <?php
+                              }
+                              if($prezenta['prezenta'] == 0){
+                                ?>
+                                <i class="fas fa-times-circle" style="color: red;"></i>
+                                <?php
+                              }
+                              if($prezenta['prezenta'] === ""){
+                                ?>
+                                <i class="far fa-calendar-times"></i>
+                                <?php
+                              }
+                            }else{
+                              ?>
+                              <i class="fas fa-home"></i>
+                              <?php
+                            }
+                          }else{
+                            ?>
+                            <i class="far fa-calendar-times"></i>
+                            <?php
+                          }
+                          ?>
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <?php
+                }else{
+                  ?>
+                  <td></td>
+                  <?php
+                }
+                if($day == $numberOfDays){
+                  break;
+                }
+                $i++;
+              }
+              ?>
+            </tr>
             <?php
-          }else{
-            ?>
-            <td></td>
-            <?php
+            if($day == $numberOfDays){
+              break;
+            }
           }
-          if($day == $numberOfDays){
-            break;
-          }
-          $i++;
-        }
-        ?>
-      </tr>
-      <?php
-      if($day == $numberOfDays){
-        break;
-      }
-    }
-    ?>
-  </tbody>
-</table>
+          ?>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
