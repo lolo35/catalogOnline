@@ -79,8 +79,10 @@ function showNote(id, clasa){
   console.log(id);
   console.log(clasa);
   if($("#current-" + id).is(":visible")){
+    $("#arrow-" + id).html("<i class='fas fa-chevron-down'></i>");
     $("#current-" + id).hide(700);
   }else{
+    $("#arrow-" + id).html("<i class='fas fa-chevron-up'></i>");
     $("#current-" + id).show(700);
   }
 }
@@ -117,4 +119,54 @@ function insertGrade(userId,clasa){
       $("#current-" + userId + "-note").html(insertData);
     }
   });
+}
+function editGrades(user_id,clasa){
+  console.log(user_id);
+  console.log(clasa);
+  $("#main-content-div").hide("fold", {direction: "up"}, "slow", function(){
+    $("#main-content-div").html("");
+    $.ajax({
+      method: "GET",
+      url: "scripts/php/editGrades.php?user=" + user_id + "&ora=" + clasa,
+      cache: false,
+      success: function(editGradesData){
+        $("#main-content-div").html(editGradesData);
+        $("#main-content-div").show("fold", {direction: "down"}, "slow", function(){
+
+        });
+      }
+    });
+  });
+}
+function deleteGrade(id){
+  console.log(id);
+  var conf = confirm("Doriti sa stergeti aceasta nota?");
+  if(conf){
+    $.ajax({
+      method: "POST",
+      url: "scripts/php/deleteGrade.php",
+      data: {
+        delete: "yes",
+        id: id
+      },
+      cache: false,
+      success: function(deleteData){
+        if(deleteData === "success"){
+          console.log("I'l do something here later");
+          $("#" + id).remove();
+        }
+      }
+    });
+  }
+}
+function showNoteModal(id){
+  $.ajax({
+    method: "GET",
+    url: "scripts/php/dataForNoteModal.php?id=" + id,
+    cache: false,
+    success: function(noteModalData){
+      $("#note-modal-content").html(noteModalData);
+    }
+  });
+  $("#modal-trigger-hidden-btn").click();
 }
