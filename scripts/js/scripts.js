@@ -82,5 +82,39 @@ function showNote(id, clasa){
     $("#current-" + id).hide(700);
   }else{
     $("#current-" + id).show(700);
-  }  
+  }
+}
+function addGrade(userId,clasa){
+  console.log(userId);
+  console.log(clasa);
+  $.ajax({
+    method: "GET",
+    url: "scripts/php/getNote.php?user_id=" + userId + "&clasa=" + clasa ,
+    cache: false,
+    success: function(noteData){
+      $("#note-dialog").html(noteData);
+      $("#note-dialog").dialog("open");
+    }
+  });
+}
+function insertGrade(userId,clasa){
+  console.log(userId);
+  console.log(clasa);
+  var grade = $("#insert-grade-input").val();
+  console.log(grade);
+  $.ajax({
+    method: "POST",
+    url: "scripts/php/insertGrade.php",
+    data: {
+      ins: 1,
+      user: userId,
+      grade: grade,
+      clasa: clasa
+    },
+    cache: false,
+    success: function(insertData){
+      //console.log(insertData);
+      $("#current-" + userId + "-note").html(insertData);
+    }
+  });
 }

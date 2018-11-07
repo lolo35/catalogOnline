@@ -4,13 +4,16 @@ require_once '../../conn.php';
 if(isset($_GET['id'])){
   $classInfo = explode("-", $_GET['id']);
   //print_r($classInfo);
-  echo $classInfo[1];
+  //echo $classInfo[1];
   $clasa = substr($_GET['id'], -3, 3);
   //echo $clasa;
   $sql = "select * from `elevi` where `clasa` = '$clasa'";
   $result = $conn -> query($sql);
   ?>
   <div class="container-fluid">
+    <div id="note-dialog" title="Adaugare Nota">
+
+    </div>
     <div class="row">
       <?php
       while($row = $result -> fetch_assoc()){
@@ -34,8 +37,8 @@ if(isset($_GET['id'])){
             <img class="card-img-top" src="images/<?php echo $row['user_id'];?>.jpg" height="220" width="286" alt="<?php echo $row['user_id'];?>-thumb-image">
             <div class="card-body">
               <h5 class="card-title"><?php echo $row['nume'];?></h5>
-              <p class="card-text">Adresa: str. bla bla</p>
-              <p class="card-text">Nr. tel: 555-kick ass</p>
+              <p class="card-text">Adresa: <?php echo $row['adresa'];?></p>
+              <p class="card-text">Nr. tel: <?php echo $row['nr_tel'];?></p>
             </div>
             <div class="list-group">
               <a href="#" class="list-group-item list-group-item-action" id="<?php echo $row['user_id'];?>-prezenta" onclick="prezenta(this.id,'<?php echo $classInfo[1];?>')">Prezenta</a>
@@ -66,7 +69,7 @@ if(isset($_GET['id'])){
                       </table>
                       <div class="row">
                         <div class="col-sm">
-                          <button type="button" class="btn btn-primary btn-block">Adauga nota</button>
+                          <button type="button" class="btn btn-primary btn-block" onclick="addGrade(<?php echo $row['user_id'];?>,'<?php echo $classInfo[1];?>')">Adauga nota</button>
                         </div>
                       </div>
                     </div>
@@ -82,12 +85,28 @@ if(isset($_GET['id'])){
         </div>
         <script type="text/javascript">
           $("#current-<?php echo $row['user_id'];?>-note").hide();
+
         </script>
         <?php
       }
       ?>
     </div>
   </div>
+  <script type="text/javascript">
+  $(function(){
+    $("#note-dialog").dialog({
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
+    });
+  });
+  </script>
   <?php
 }
 ?>
