@@ -24,8 +24,8 @@ if(isset($_GET['user'])){
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Inchide</button>
-          <button type="button" class="btn btn-primary">Salveaza</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="refreshGradeTable(<?php echo $user;?>,'<?php echo $ora;?>')">Inchide</button>
+          <button type="button" class="btn btn-primary" onclick="submitChangeGradeForm()">Salveaza</button>
         </div>
       </div>
     </div>

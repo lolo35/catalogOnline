@@ -170,3 +170,51 @@ function showNoteModal(id){
   });
   $("#modal-trigger-hidden-btn").click();
 }
+function submitChangeGradeForm(){
+  $("#change-grade-form").submit();
+}
+function changeGradeForm(e,id,userId,clasa){
+  e.preventDefault();
+  //console.log(userId);
+  //console.log(clasa);
+  var grade = $("#nota").val();
+  var tipNota = $("#tip-nota").val();
+  var comments = $("#comments").val();
+  $.ajax({
+    method: "POST",
+    url: "scripts/php/submitChangeGrade.php",
+    data: {
+      changeGrade: "true",
+      id: id,
+      grade: grade,
+      type: tipNota,
+      comments: comments
+    },
+    cache: false,
+    success: function (changeGradeData){
+      $("#modal-alert-div").html(changeGradeData);
+      /*$("#main-content-div").html("");
+      $.ajax({
+        method: "GET",
+        url: "scripts/php/editGrades.php?user=" + userId + "&ora=" + clasa,
+        cache: false,
+        success: function(editGradesData){
+          $("#main-content-div").html(editGradesData);
+        }
+      });*/
+    }
+  });
+}
+function refreshGradeTable(user, ora){
+  $("#noteModal").on('hidden.bs.modal', function(e){
+    $("#main-content-div").html("");
+    $.ajax({
+      method: "GET",
+      url: "scripts/php/editGrades.php?user=" + user + "&ora=" + ora,
+      cache: false,
+      success: function(editGradesData){
+        $("#main-content-div").html(editGradesData);
+      }
+    });
+  });  
+}
