@@ -24,13 +24,14 @@ require_once 'functions.php';
 		<link rel="stylesheet" href="css/all.css">
 	</head>
 	<body style="background-color: #EDEDED;">
-		<header>
+		<header class="text-center">
 			<nav class="navbar navbar-toggleable-md navbar-light bg-faded colors" id="navbar">
 				<a class="navbar-brand" href="#">
-					<img src="images/trace-logo.png" width="90" height="60" class="rounded img-fluid" alt="brand icon">
-                    Catalog Online
+					<!--<img src="images/trace-logo.png" width="90" height="60" class="rounded img-fluid" alt="brand icon">-->
+					<i class="fas fa-address-book"></i>
+					Catalog Online
 				</a>
-                <h4 id="header-text"></h4>
+        <h4 id="header-text">Scoala generala nr 2</h4>
 				<div class="my-2 my-lg-0">
 					<!--<img src="images/autoliv_logo.png" class="rounded img-fluid" width="150" height="50" alt="Autoliv Logo">-->
 				</div>

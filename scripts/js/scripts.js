@@ -1,9 +1,17 @@
 $(document).ready(function(){
 
 });
+function leftMenu(id){
+  console.log(id);
+  var menuItem = id.substring(9);
+  console.log(menuItem);
+  if(menuItem === "Pagina Principala"){
+    window.location.replace("index.php");
+  }
+}
 function makeActive(id){
-  $("a").removeClass("active");
-  $("#" + id).addClass("active");
+  //$("a").removeClass("active");
+  //$("#" + id).addClass("active");
   $.ajax({
     method: "GET",
     url: "scripts/php/clase.php?clasa=" + id,
@@ -216,5 +224,5 @@ function refreshGradeTable(user, ora){
         $("#main-content-div").html(editGradesData);
       }
     });
-  });  
+  });
 }

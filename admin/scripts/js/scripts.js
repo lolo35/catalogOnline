@@ -48,4 +48,13 @@ function deleteMaterie(id){
 }
 function editMaterie(id){
   console.log(id);
+  $("#materie-edit-modal-btn").click();
+  $.ajax({
+    method: "GET",
+    url: "scripts/php/materieEdit-modalContent.php?id=" + id ,
+    cache: false,
+    success: function(materieEditData){
+      $("#edit-materie-modal-body").html(materieEditData);
+    }
+  });
 }
