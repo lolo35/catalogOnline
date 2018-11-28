@@ -7,6 +7,8 @@ function leftMenu(id){
   console.log(menuItem);
   if(menuItem === "Pagina Principala"){
     window.location.replace("index.php");
+  }else if(menuItem === "Situatie corigente"){
+    $("#" + id).addClass("active");
   }
 }
 function makeActive(id){
@@ -79,6 +81,48 @@ function markAsPresent(id, clasa,sqlId){
       console.log(data);
       if(data === "success"){
         $("#" + sqlId +"-span").html("<i class='fas fa-check-circle' style='color: green; font-size: 1.4em;'></i>");
+      }
+    }
+  });
+}
+function markAsPrezentClick(id, clasa,sqlId){
+  console.log(id);
+  console.log(clasa);
+  console.log(sqlId);
+  $.ajax({
+    method: "POST",
+    url: "scripts/php/markAsPrezent.php",
+    data: {
+      pontare: 1,
+      nume: id,
+      user_id: sqlId,
+      clasa: clasa
+    },
+    cache: false,
+    success: function(data){
+      console.log(data);
+      if(data === "success"){
+        $("#" + sqlId +"-span").html("<i class='fas fa-check-circle' style='color: green; font-size: 1.4em;'></i>");
+        $("#" + id).attr("onclick", "markAsAbsent('"+ id +"', '" + clasa + "', '" + sqlId + "')");
+      }
+    }
+  });
+}
+function markAsAbsent(id, clasa, sqlId){
+  $.ajax({
+    method: "POST",
+    url: "scripts/php/markAsAbsent.php",
+    data: {
+      absent: "true",
+      nume: id,
+      user_id: sqlId,
+      clasa: clasa
+    },
+    cache: false,
+    success: function(absentData){
+      if(absentData === "success"){
+        $("#" + sqlId + "-span").html("<i class='fas fa-times-circle' style='color: red; font-size: 1.4em;'></i>");
+        $("#" + id).attr("onclick", "markAsPrezentClick('"+ id +"', '" + clasa + "', '" + sqlId + "')");
       }
     }
   });

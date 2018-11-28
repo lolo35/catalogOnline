@@ -5,7 +5,6 @@ $resOre = $conn -> query($sqlOre);
 $sqlLeftMenu = "select `menuItem`,`favicon` from `left_menu`";
 $resLeftMenu = $conn -> query($sqlLeftMenu);
 ?>
-<script type="text/javascript" src="scripts/js/scripts.js"></script>
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm">
@@ -111,7 +110,7 @@ $resLeftMenu = $conn -> query($sqlLeftMenu);
     </div>
   </div>
 </div>
-
+<script type="text/javascript" src="scripts/js/scripts.js"></script>
 <?php
 include 'footer.php';
 /**

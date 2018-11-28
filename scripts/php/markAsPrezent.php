@@ -12,8 +12,10 @@ if(isset($_POST['pontare'])){
   $resCheckLogin = $conn -> query($checkLogin);
   $rowCheckLogin = $resCheckLogin -> fetch_assoc();
   //echo $rowCheckLogin['prezenta'];
-  if($rowCheckLogin['prezenta'] < 0 || $rowCheckLogin['prezenta'] == null){
-    $sql = "insert into `prezenta` (`nume`,`user_id`,`ora`,`date`,`prezenta`) values ('".$nume['nume']."','$user_id','$clasa','$date','1')";
+  if($rowCheckLogin['prezenta'] == 0){
+    //$sql = "insert into `prezenta` (`nume`,`user_id`,`ora`,`date`,`prezenta`) values ('".$nume['nume']."','$user_id','$clasa','$date','1')";
+    $sql = "update `prezenta` set `prezenta` = '1' where `user_id` = '$user_id' and `date` = '$date' and `ora` = '$clasa'";
+    //echo $sql;
     if($conn -> query($sql)){
       echo "success";
     }else{

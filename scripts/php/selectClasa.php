@@ -25,13 +25,18 @@ if(isset($_GET['id'])){
         $prezent = $resPrezentNotification -> fetch_assoc();
 
         //echo $prezent['prezenta'];
-        if(strlen($prezent['prezenta']) < 1){
+        if($prezent['prezenta'] == 0){
           $span = "<i class='fas fa-times-circle' style='color: red; font-size: 1.4em;'></i>";
+          $javascriptFunction = "markAsPrezentClick";
         }
         if($prezent['prezenta'] == 1){
           $span = "<i class='fas fa-check-circle' style='color: green; font-size: 1.4em;'></i>";
+          $javascriptFunction = "markAsAbsent";
         }
         ?>
+        <script type="text/javascript">
+          markAsPresent("<?php echo $row['user_id'];?>-prezenta",'<?php echo $classInfo[1];?>',<?php echo $row['user_id'];?>);
+        </script>
         <div class="col-sm-3">
           <div class="card" style="width: 18rem;">
             <img class="card-img-top" src="images/<?php echo $row['user_id'];?>.jpg" height="220" width="286" alt="<?php echo $row['user_id'];?>-thumb-image">
@@ -84,7 +89,7 @@ if(isset($_GET['id'])){
                   </div>
                 </div>
               </div>
-              <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between" id="<?php echo $row['nume'];?>" onclick="markAsPresent(this.id,'<?php echo $classInfo[1];?>',<?php echo $row['user_id'];?>)">
+              <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between" id="<?php echo $row['user_id'];?>" onclick="<?php echo $javascriptFunction;?>(this.id,'<?php echo $classInfo[1];?>',<?php echo $row['user_id'];?>)">
                 Prezent?
                 <span class="badge"><div id="<?php echo $row['id'];?>-span"><?php echo $span;?></div></span>
               </a>
