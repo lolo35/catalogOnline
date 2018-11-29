@@ -8,3 +8,23 @@
 .custom-alert{
     background-color: #46A346;
 }
+.zoom {
+	transition: transform .2s;
+}
+.zoom:hover {
+	-ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+	transform: scale(1.2);/* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+.left-menu {
+	transition: transform .2s;
+	background-color: #2153af;
+}
+.left-menu:hover {
+	background-color: #339CFF;
+}
+.main-page-card-custom {
+	background-color: #4169E1;
+	height: 3rem;
+	border-radius: 25px;
+}

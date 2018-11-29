@@ -33,7 +33,7 @@ $resLeftMenu = $conn -> query($sqlLeftMenu);
               <?php
               while($row = $resLeftMenu -> fetch_assoc()){
                 ?>
-                <a href="#" style="background-color: #2153af;" class="list-group-item list-group-item-action" onclick="leftMenu(this.id)" id="left-nav-<?php echo $row['menuItem'];?>">
+                <a href="#" class="list-group-item list-group-item-action left-menu" onclick="leftMenu(this.id)" id="left-nav-<?php echo $row['menuItem'];?>">
                   <?php echo $row['favicon'];?>
                   <span style="color: white;"><?php echo $row['menuItem'];?></span>
                 </a>
@@ -74,9 +74,9 @@ $resLeftMenu = $conn -> query($sqlLeftMenu);
                       }
                       ?>
                       <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="card" id="main-nav-<?php echo $row['materie'];?>" style="width: 11rem; cursor:pointer; margin-top: 20px; background-color: #EDEDED; border: 0;" onclick="makeActive(this.id)">
+                        <div class="card zoom" id="main-nav-<?php echo $row['materie'];?>" style="width: 11rem; cursor:pointer; margin-top: 20px; background-color: #EDEDED; border: 0;" onclick="makeActive(this.id)">
                           <img style="border-radius: 50%;" src="<?php if(file_exists($jpg)){echo $jpg;}else{echo $png;} ?>" alt="<?php echo $row['materie'];?>" width="100%" height="120">
-                          <div class="card-body text-center" style="background-color: #4169E1; height: 3rem;">
+                          <div class="card-body text-center main-page-card-custom">
                             <h5 style="color: white; margin-top: -10%;"><?php echo $row['materie'];?></h5>
                           </div>
                         </div>
