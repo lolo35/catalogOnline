@@ -14,6 +14,9 @@ if(isset($_GET['id'])){
     <div id="note-dialog" title="Adaugare Nota">
 
     </div>
+    <div id="tabel-note-dialog" title="Tabel Note">
+      
+    </div>
     <div class="row">
       <?php
       while($row = $result -> fetch_assoc()){

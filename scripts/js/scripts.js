@@ -39,10 +39,34 @@ function selectClasa(id){
       success: function(data){
         $("#main-content-div").html(data);
         $("#main-content-div").show("drop", {direction: "right"}, "slow", function(){
+          $("#tabel-note-container").hide("fold", {direction: "up"}, "slow", function(){
+            $("#tabel-note-container").html(
+              "<div class='list-group'>" +
+                "<a href='#' class='list-group-item list-group-item-action left-menu' onclick='showNoteDetails(\" " + id + "\")'>" +
+                  "<i class='fas fa-info-circle' style='color: white;'></i>" +
+                    "<span style='color: white;'>" +
+                    " Tabel Note" +
+                  "</span>" +
+                "</a>" +
+              "</div>");
+              $("#tabel-note-container").show("fold", {direction: "down"}, "slow", function(){
 
+              });
+          });
         });
       }
     });
+  });
+}
+function showNoteDetails(materia){
+  console.log(materia);
+  $.ajax({
+    method: "GET",
+    url: "scripts/php/tabelnote.php?clasa=" + materia ,
+    cache: false,
+    success: function(tabelNoteDate){
+      $("#tabel-note-dialog").html(tabelNoteDate);
+    }
   });
 }
 function prezenta(id,materia){

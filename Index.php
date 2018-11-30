@@ -18,13 +18,6 @@ $resLeftMenu = $conn -> query($sqlLeftMenu);
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm">
-            <div id="left-side-div">
-
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm">
             <div class="list-group" style="background-color: #2153af;">
               <h5 class="text-center" style="color: white;">
                 <i class="fas fa-bars"></i>
@@ -40,6 +33,13 @@ $resLeftMenu = $conn -> query($sqlLeftMenu);
                 <?php
               }
               ?>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <div id="tabel-note-container">
+              
             </div>
           </div>
         </div>
