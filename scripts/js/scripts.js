@@ -65,7 +65,14 @@ function showNoteDetails(materia){
     url: "scripts/php/tabelnote.php?clasa=" + materia ,
     cache: false,
     success: function(tabelNoteDate){
-      $("#tabel-note-dialog").html(tabelNoteDate);
+      $("#main-content-div").hide("fold", {direction: "up"}, "slow", function(){
+        $("#main-content-div").html("");
+        $("#main-content-div").html(tabelNoteDate);
+        $("#main-content-div").show("fold", {direction: "down"}, "slow", function(){
+
+        });
+      });
+      //$("#tabel-note-dialog").html(tabelNoteDate);
     }
   });
 }
