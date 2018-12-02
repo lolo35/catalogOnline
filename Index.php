@@ -39,7 +39,7 @@ $resLeftMenu = $conn -> query($sqlLeftMenu);
         <div class="row">
           <div class="col-sm">
             <div id="tabel-note-container">
-              
+
             </div>
           </div>
         </div>
@@ -74,8 +74,8 @@ $resLeftMenu = $conn -> query($sqlLeftMenu);
                       }
                       ?>
                       <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="card zoom" id="main-nav-<?php echo $row['materie'];?>" style="width: 11rem; cursor:pointer; margin-top: 20px; background-color: #EDEDED; border: 0;" onclick="makeActive(this.id)">
-                          <img style="border-radius: 50%;" src="<?php if(file_exists($jpg)){echo $jpg;}else{echo $png;} ?>" alt="<?php echo $row['materie'];?>" width="100%" height="120">
+                        <div href="test" class="card zoom" id="main-nav-<?php echo $row['materie'];?>" style="width: 11rem; cursor:pointer; margin-top: 20px; background-color: #EDEDED; border: 0;" onclick="makeActive(this.id)">
+                          <img style="border-radius: 50%; box-shadow: 2px 2px 2px 2px grey;" src="<?php if(file_exists($jpg)){echo $jpg;}else{echo $png;} ?>" alt="<?php echo $row['materie'];?>" width="100%" height="120">
                           <div class="card-body text-center main-page-card-custom">
                             <h5 style="color: white; margin-top: -10%;"><?php echo $row['materie'];?></h5>
                           </div>

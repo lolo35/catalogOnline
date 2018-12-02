@@ -35,7 +35,7 @@ if(isset($_GET['clasa'])){
       <tr>
     <?php
     foreach($userID as $key => $user_id){
-      $noteSql = "select * from `note` where `user_id` = '".$user_id."' and `ora` = '$materia'";
+      $noteSql = "select * from `note` where `user_id` = '".$user_id."' and `ora` = '$materia' order by `date` asc";
       $resNoteSql = $conn -> query($noteSql);
       ?>
 
@@ -50,6 +50,10 @@ if(isset($_GET['clasa'])){
                     <?php
                     $media = 0;
                     $counter = 0;
+                    $semOneBreak = 0;
+                    $semOneCounter = 0;
+                    $semTwoBreak = 0;
+                    $semTwoCounter = 0;
                     while($rowNoteSql = $resNoteSql -> fetch_assoc()){
                       if($rowNoteSql['nota'] < 4){
                         $class = "class='table-danger'";
@@ -58,8 +62,45 @@ if(isset($_GET['clasa'])){
                       }elseif($rowNoteSql['nota'] > 8){
                         $class = "class='table-success'";
                       }
+                      if($rowNoteSql)
                       $media += $rowNoteSql['nota'];
                       $counter++;
+                      $date = new DateTime($rowNoteSql['date']);
+                      $intDate = $date -> format('Ymd');
+                      //echo $intDate;
+                      $startSemestrUnu = 20181106;
+                      $endSemestruUnu = 20181113;
+                      $startSemestruDoi = 20181126;
+                      $endSemestruDoi = 20181224;
+                      if(($intDate >= $startSemestrUnu) && ($intDate <= $endSemestruUnu)){
+                        if(!isset($noteSemOne)){
+                          $noteSemOne = 0;
+                        }
+                        $noteSemOne += $rowNoteSql['nota'];
+                        $semOneCounter++;
+                        if ($semOneBreak < 1) {
+                          ?>
+                          <tr>
+                            <th>Semestrul Intai</th>
+                          </tr>
+                          <?php
+                          $semOneBreak += 1;
+                        }
+                      }elseif(($intDate >= $startSemestruDoi) && ($intDate <= $endSemestruDoi)){
+                        if(!isset($noteSemTwo)){
+                          $noteSemTwo = 0;
+                        }
+                        $noteSemTwo += $rowNoteSql['nota'];
+                        $semTwoCounter++;
+                        if($semTwoBreak < 1){
+                          ?>
+                          <tr>
+                            <th>Semestrul Doi</th>
+                          </tr>
+                          <?php
+                          $semTwoBreak += 1;
+                        }
+                      }
                       ?>
                       <tr <?php echo $class;?>>
                         <td><?php echo $rowNoteSql['nota'];?></td>
@@ -68,7 +109,37 @@ if(isset($_GET['clasa'])){
                     }
                     ?>
                     <tr>
-                      <th><u>Media</u></th>
+                      <th><u>Medii</u></th>
+                    </tr>
+                    <tr>
+                      <td><u>Sem 1</u></td>
+                    </tr>
+                    <tr>
+                      <td><?php
+                            if($semOneCounter > 0){
+                              if(isset($noteSemOne)){
+                                echo $noteSemOne / $semOneCounter;
+                              }
+                            }
+                          ?>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><u>Sem 2</u></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <?php
+                          if($semTwoCounter > 0){
+                            if(isset($noteSemTwo)){
+                              echo $noteSemTwo / $semTwoCounter;
+                            }
+                          }
+                        ?>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><u>Anuala</u></td>
                     </tr>
                     <tr>
                       <td><?php if($media > 0){echo $media / $counter;}else{echo 0;}?></td>
@@ -87,6 +158,14 @@ if(isset($_GET['clasa'])){
   }
 ?>
 <div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-1">
+      <a href="" onclick="event.preventDefault(); selectClasa('clasa-<?php echo $materia;?>-<?php echo $clasa;?>')">
+        <i class="fas fa-chevron-left"></i>
+        Inapoi
+      </a>
+    </div>
+  </div>
       <?php
       $limit = 12;
       $offset = 0;

@@ -8,6 +8,14 @@ if(isset($_GET['clasa'])){
   ?>
   <div class="container-fluid">
     <div class="row">
+      <div class="col-sm-1">
+        <a href="index.php">
+          <i class="fas fa-chevron-left"></i>
+          Inapoi
+        </a>
+      </div>
+    </div>
+    <div class="row">
       <?php
       $i = 0;
       while($row = $resClase -> fetch_assoc()){

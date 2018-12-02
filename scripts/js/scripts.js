@@ -98,6 +98,7 @@ function markAsPresent(id, clasa,sqlId){
   console.log(id);
   console.log(clasa);
   console.log(sqlId);
+
   $.ajax({
     method: "POST",
     url: "scripts/php/pontare.php",

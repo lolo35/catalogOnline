@@ -3,7 +3,7 @@ session_start();
 require_once '../../conn.php';
 if(isset($_GET['nume']) && isset($_GET['materia'])){
   $nume = explode("-", $_GET['nume']);
-  $name = "select `nume` from `elevi` where `user_id` = '".$nume[0]."' limit 1";
+  $name = "select `nume`,`clasa` from `elevi` where `user_id` = '".$nume[0]."' limit 1";
   $resName = $conn -> query($name);
   $rowName = $resName -> fetch_assoc();
   $materia = $_GET['materia'];
@@ -37,6 +37,14 @@ if($first === "Sunday"){
 }
 ?>
 <div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-1">
+      <a href="" onclick="event.preventDefault(); selectClasa('clasa-<?php echo $materia;?>-<?php echo $rowName['clasa'];?>')">
+        <i class="fas fa-chevron-left"></i>
+        Inapoi
+      </a>
+    </div>
+  </div>
   <div class="row">
     <div class="col-sm">
       <nav aria-label="breadcrumb">

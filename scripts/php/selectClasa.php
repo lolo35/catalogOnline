@@ -15,7 +15,15 @@ if(isset($_GET['id'])){
 
     </div>
     <div id="tabel-note-dialog" title="Tabel Note">
-      
+
+    </div>
+    <div class="row">
+      <div class="col-sm-1">
+        <a href="" onclick="event.preventDefault(); makeActive('main-nav-<?php echo $classInfo[1];?>')">
+          <i class="fas fa-chevron-left"></i>
+          Inapoi
+        </a>
+      </div>
     </div>
     <div class="row">
       <?php
@@ -40,7 +48,7 @@ if(isset($_GET['id'])){
         <script type="text/javascript">
           markAsPresent("<?php echo $row['user_id'];?>-prezenta",'<?php echo $classInfo[1];?>',<?php echo $row['user_id'];?>);
         </script>
-        <div class="col-sm-3">
+        <div class="col-sm col-md col-lg">
           <div class="card" style="width: 18rem;">
             <img class="card-img-top" src="images/<?php echo $row['user_id'];?>.jpg" height="220" width="286" alt="<?php echo $row['user_id'];?>-thumb-image">
             <div class="card-body">
@@ -50,7 +58,7 @@ if(isset($_GET['id'])){
             </div>
             <div class="list-group">
               <a href="#" class="list-group-item list-group-item-action" id="<?php echo $row['user_id'];?>-prezenta" onclick="prezenta(this.id,'<?php echo $classInfo[1];?>')">Prezenta</a>
-              <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between" id="<?php echo $row['user_id'];?>-note" onclick="showNote(this.id, '<?php echo $classInfo[1];?>')">
+              <a class="list-group-item list-group-item-action d-flex justify-content-between" id="<?php echo $row['user_id'];?>-note" onclick="showNote(this.id, '<?php echo $classInfo[1];?>')">
                 <div id="arrow-<?php echo $row['user_id'];?>-note">
                   <i class="fas fa-chevron-down"></i>
                 </div>
