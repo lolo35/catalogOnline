@@ -17,6 +17,7 @@ require_once 'functions.php';
 		<script src="js/jquery-ui.min.js" type="text/javascript"></script>
 		<script src="js/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
 		<script type="text/javascript" src="js/all.js"></script>
+		<script type="text/javascript" src="js/Chart.bundle.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link type="text/css" rel="stylesheet" href="css/jquery-ui.min.css"/>
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />

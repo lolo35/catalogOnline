@@ -10,6 +10,22 @@ function leftMenu(id){
   }else if(menuItem === "Situatie corigente"){
     $("#" + id).addClass("active");
   }
+  if(menuItem === "Grafic prezenta"){
+    $.ajax({
+      method: "GET",
+      url: "scripts/php/prezentaCharts.php",
+      cache: false,
+      success: function(chartsData){
+        $("#main-content-div").hide("fold", {direction: "up"}, "slow", function(){
+          $("#main-content-div").html("");
+          $("#main-content-div").html(chartsData);
+          $("#main-content-div").show("fold", {direction: "down"}, "slow", function(){
+
+          });
+        });
+      }
+    });
+  }
 }
 function makeActive(id){
   //$("a").removeClass("active");
