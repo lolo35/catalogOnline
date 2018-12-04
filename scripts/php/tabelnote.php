@@ -1,10 +1,108 @@
 <?php
 session_start();
-if(!isset($_SESSION['user'])){
-	$URL = "login.php";
-	redirect($URL);
-}
 require_once '../../conn.php';
+function drawTable($conn,$clasa,$materia){
+  $sql = "select `user_id`,`nume` from `elevi` where `clasa` = '$clasa'";
+  //echo $sql;
+  $result = $conn -> query($sql);
+  ?>
+  <table class="table table-bordered table-sm" style="border: 1px solid black; background-color: white;">
+    <thead class="colors" style="border: 1px solid black;">
+      <tr style="border: 1px solid black;">
+        <th style="border: 1px solid black;">Nume Prenume Elev</th>
+        <th style="border: 1px solid black;">Nota</th>
+        <th style="border: 1px solid black;">Nota</th>
+        <th style="border: 1px solid black;">Nota</th>
+        <th style="border: 1px solid black;">Nota</th>
+        <th style="border: 1px solid black;">Nota</th>
+        <th style="border: 1px solid black;">Nota</th>
+        <th style="border: 1px solid black;" class="bg-warning">Teza</th>
+        <th style="border: 1px solid black;" class="bg-danger">Media<br>Semestriala</th>
+        <th style="border: 1px solid black;" class="bg-success">Media Anuala</th>
+      </tr>
+    </thead>
+    <tbody style="border: 1px solid black;">
+
+        <?php
+        while($thead = $result -> fetch_assoc()){
+          ?>
+        <tr style="padding: 0;">
+          <td style="border: 1px solid black;"><?php echo $thead['nume'];?></td>
+          <?php
+          //$note = array();
+          $noteSql = "select * from `note` where `user_id` = '".$thead['user_id']."' and `ora` = '$materia' and `tip_nota` = '1'";
+          $count = "select count(`nota`) as total from `note` where `user_id` = '".$thead['user_id']."' and `ora` = '$materia' and `tip_nota` = '1'";
+          $resCount = $conn -> query($count);
+          $total = $resCount -> fetch_assoc();
+          //echo $noteSql;
+          $resNoteSql = $conn -> query($noteSql);
+          while ($row = $resNoteSql -> fetch_assoc()) {
+            if($row['nota'] < 4){
+              $class = "color: red;";
+            }/*elseif($row['nota'] > 4 && $row['nota'] <= 7){
+              $class = "bg-warning";
+            }elseif($row['nota'] > 7 && $row['nota'] <= 10){
+              $class = "bg-success";
+            }*/else{
+              $class = "";
+            }
+            ?>
+            <td style="cursor: pointer;<?php echo $class;?>; border: 1px solid black; padding: 0;" id="<?php echo $row['id'];?>"
+               title="Detalii" data-container="body" data-toggle="popover" data-placement="top" data-content="Data: <?php echo $row['date'];?>">
+               <table class="table table-sm table-borderless" style="padding: 0; margin: 0 !important;">
+                 <thead>
+                   <tr>
+                     <th><b><?php echo $row['nota'];?></b></th>
+                     <th style="text-align: right; vertical-align: top;"><i class="fas fa-info" style="font-size: 0.7rem;" title="Apasati pentru mai multe informatii"></i></th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr style="padding: 0 !important; margin: 0 !important;">
+                     <td style="text-align: left; position: relative; bottom: -5px;"><i class="fas fa-pencil-alt" style="font-size: 0.7rem;" title="Apasati pentru mai multe informatii"></i></td>
+                     <td></td>
+                   </tr>
+                 </tbody>
+               </table>
+            </td>
+            <?php
+            // code...
+          }
+          $i = $total['total'];
+          if($i < 6){
+            //echo $i;
+            while($i < 6){
+              ?>
+              <td style="border: 1px solid black;"></td>
+              <?php
+              $i++;
+            }
+          }
+          if($i == 6){
+            $teza = "select `nota` from `note` where `user_id` = '".$thead['user_id']."' and `ora` = '$materia' and `tip_nota` = '2'";
+            $resTeza = $conn -> query($teza);
+            $rowTeza = $resTeza -> fetch_assoc();
+            ?>
+            <td style="border: 1px solid black;"><?php echo $rowTeza['nota'];?></td>
+            <?php
+            $i++;
+          }
+          if($i == 7){
+            $mediaSem1 = "select sum(`nota`) as total, count(`nota`) as number from `note` where `user_id` = '".$thead['user_id']."' and `ora` = '$materia' and `tip_nota` = '1'";
+            $resMediaSem1 = $conn -> query($mediaSem1);
+            $rowMediaSem1 = $resMediaSem1 -> fetch_assoc();
+            ?>
+            <td style="border: 1px solid black;"><?php if($rowMediaSem1['total'] > 0){echo $rowMediaSem1['total'] / $rowMediaSem1['number'];}?></td>
+            <?php
+          }
+          ?>
+        </tr>
+      <?php
+  }
+  ?>
+    </tbody>
+  </table>
+  <?php
+}
 if(isset($_GET['clasa'])){
   $get = mysqli_real_escape_string($conn, $_GET['clasa']);
   $infoArray = explode("-", $get);
@@ -12,192 +110,36 @@ if(isset($_GET['clasa'])){
   $clasa = $infoArray[2] . "-" . $infoArray[3];
   $materia = $infoArray[1];
   //echo $materia;
-  $numberOfElevi = "select count(`id`) as total from `elevi` where `clasa` = '$clasa'";
+  /*$numberOfElevi = "select count(`id`) as total from `elevi` where `clasa` = '$clasa'";
   $resNumberOfElevi = $conn -> query($numberOfElevi);
   $actualNumberOfElevi = $resNumberOfElevi -> fetch_assoc();
   //echo $actualNumberOfElevi['total'];
-  $userID = array();
-  function drawNoteTable($conn,$clasa,$materia,$limit,$offset){
-    $sql = "select `user_id`,`nume` from `elevi` where `clasa` = '$clasa' limit $limit offset $offset";
-    //echo $sql;
-    $result = $conn -> query($sql);
-    ?>
-    <table class="table table-bordered table-sm">
-      <thead class="colors">
-        <tr>
-    <?php
-    while($thead = $result -> fetch_assoc()){
-      $userID[] = $thead['user_id'];
-      ?>
-            <th><?php echo $thead['nume'];?></th>
-      <?php
-    }
-    ?>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-    <?php
-    foreach($userID as $key => $user_id){
-      $noteSql = "select * from `note` where `user_id` = '".$user_id."' and `ora` = '$materia' order by `date` asc";
-      $resNoteSql = $conn -> query($noteSql);
-      ?>
-
-            <td>
-              <table class="table table-sm text-center table-borderless">
-                <thead>
-                  <tr>
-                    <td>Note</td>
-                  </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $media = 0;
-                    $counter = 0;
-                    $semOneBreak = 0;
-                    $semOneCounter = 0;
-                    $semTwoBreak = 0;
-                    $semTwoCounter = 0;
-                    while($rowNoteSql = $resNoteSql -> fetch_assoc()){
-                      if($rowNoteSql['nota'] < 4){
-                        $class = "class='table-danger'";
-                      }elseif($rowNoteSql['nota'] > 4 && $rowNoteSql['nota'] < 8){
-                        $class = "class='table-warning'";
-                      }elseif($rowNoteSql['nota'] > 8){
-                        $class = "class='table-success'";
-                      }
-                      if($rowNoteSql)
-                      $media += $rowNoteSql['nota'];
-                      $counter++;
-                      $date = new DateTime($rowNoteSql['date']);
-                      $intDate = $date -> format('Ymd');
-                      //echo $intDate;
-                      $startSemestrUnu = 20181106;
-                      $endSemestruUnu = 20181113;
-                      $startSemestruDoi = 20181126;
-                      $endSemestruDoi = 20181224;
-                      if(($intDate >= $startSemestrUnu) && ($intDate <= $endSemestruUnu)){
-                        if(!isset($noteSemOne)){
-                          $noteSemOne = 0;
-                        }
-                        $noteSemOne += $rowNoteSql['nota'];
-                        $semOneCounter++;
-                        if ($semOneBreak < 1) {
-                          ?>
-                          <tr>
-                            <th>Semestrul Intai</th>
-                          </tr>
-                          <?php
-                          $semOneBreak += 1;
-                        }
-                      }elseif(($intDate >= $startSemestruDoi) && ($intDate <= $endSemestruDoi)){
-                        if(!isset($noteSemTwo)){
-                          $noteSemTwo = 0;
-                        }
-                        $noteSemTwo += $rowNoteSql['nota'];
-                        $semTwoCounter++;
-                        if($semTwoBreak < 1){
-                          ?>
-                          <tr>
-                            <th>Semestrul Doi</th>
-                          </tr>
-                          <?php
-                          $semTwoBreak += 1;
-                        }
-                      }
-                      ?>
-                      <tr <?php echo $class;?>>
-                        <td><?php echo $rowNoteSql['nota'];?></td>
-                      </tr>
-                      <?php
-                    }
-                    ?>
-                    <tr>
-                      <th><u>Medii</u></th>
-                    </tr>
-                    <tr>
-                      <td><u>Sem 1</u></td>
-                    </tr>
-                    <tr>
-                      <td><?php
-                            if($semOneCounter > 0){
-                              if(isset($noteSemOne)){
-                                echo $noteSemOne / $semOneCounter;
-                              }
-                            }
-                          ?>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><u>Sem 2</u></td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <?php
-                          if($semTwoCounter > 0){
-                            if(isset($noteSemTwo)){
-                              echo $noteSemTwo / $semTwoCounter;
-                            }
-                          }
-                        ?>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><u>Anuala</u></td>
-                    </tr>
-                    <tr>
-                      <td><?php if($media > 0){echo $media / $counter;}else{echo 0;}?></td>
-                    </tr>
-                </tbody>
-              </table>
-            </td>
-
-      <?php
-    }
-    ?>
-    </tr>
-    </tbody>
-  </table>
-    <?php
-  }
-?>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-1">
-      <a href="" onclick="event.preventDefault(); selectClasa('clasa-<?php echo $materia;?>-<?php echo $clasa;?>')">
-        <i class="fas fa-chevron-left"></i>
-        Inapoi
-      </a>
+  $userID = array();*/
+  ?>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="alert alert-success">
+          <strong>Semestrul 1</strong>
+        </div>
+      </div>
     </div>
-  </div>
-      <?php
-      $limit = 12;
-      $offset = 0;
-      $i = 0;
-      while($i < $actualNumberOfElevi['total']){
-        //echo $i;
-        if($i > 11 && $i < 23){
-          $uneven = $actualNumberOfElevi['total'] - 12;
-        }
-        if($i %12 != 0){
-
-        }else{
-          ?>
-          <div class="row">
-            <div class="col-sm-<?php if(isset($uneven) && $uneven < 12){echo $uneven;}else{echo 12;}?>" style="padding: 0;">
-              <?php
-              drawNoteTable($conn,$clasa,$materia,$limit,$offset);
-              $limit += 12;
-              $offset += 12;
-              ?>
-            </div>
-          </div>
+      <div class="row">
+        <div class="col-sm">
           <?php
-            }
-        $i++;
-      }
-      ?>
-</div>
-<?php
+          drawTable($conn,$clasa,$materia);
+          ?>
+        </div>
+      </div>
+  </div>
+  <script type="text/javascript">
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  });
+  function triggerPopover(id){
+    $("#" + id).click();
+  }
+  </script>
+  <?php
 }
 ?>
