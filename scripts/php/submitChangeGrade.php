@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(!isset($_SESSION['user'])){
+	$URL = "login.php";
+	redirect($URL);
+}
 require_once '../../conn.php';
 if(isset($_POST['changeGrade']) && $_POST['changeGrade'] === "true"){
   $id = $_POST['id'];

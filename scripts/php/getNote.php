@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(!isset($_SESSION['user'])){
+	$URL = "login.php";
+	redirect($URL);
+}
 if(isset($_GET['user_id'])){
   $user_id = $_GET['user_id'];
   $clasa = $_GET['clasa'];
@@ -19,7 +23,7 @@ if(isset($_GET['user_id'])){
     </div>
   </div>
   <script type="text/javascript">
-    
+
   </script>
   <?php
 }

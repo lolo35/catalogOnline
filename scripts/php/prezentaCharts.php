@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(!isset($_SESSION['user'])){
+	$URL = "login.php";
+	redirect($URL);
+}
 require_once '../../conn.php';
 $sql = "select `nume`,`user_id`,`clasa` from `elevi`";
 $result = $conn -> query($sql);

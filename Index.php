@@ -101,6 +101,18 @@ $resLeftMenu = $conn -> query($sqlLeftMenu);
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm">
+            <?php echo $_SESSION['user'];?>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <form method="post">
+              <button type="submit" name="logout-btn" class="btn btn-danger">Logout</button>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
             <div id="right-side-div">
 
             </div>
@@ -112,6 +124,11 @@ $resLeftMenu = $conn -> query($sqlLeftMenu);
 </div>
 <script type="text/javascript" src="scripts/js/scripts.js"></script>
 <?php
+if(isset($_POST['logout-btn'])){
+  session_destroy();
+  $URL = "login.php";
+  redirect($URL);
+}
 include 'footer.php';
 /**
  * Created by PhpStorm.

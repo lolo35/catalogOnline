@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(!isset($_SESSION['user'])){
+	$URL = "login.php";
+	redirect($URL);
+}
 require_once '../../conn.php';
 if(isset($_GET['clasa'])){
   $clasa = substr($_GET['clasa'], 9);

@@ -2,6 +2,10 @@
 session_start();
 require_once 'conn.php';
 require_once 'functions.php';
+if(!isset($_SESSION['user'])){
+	$URL = "login.php";
+	redirect($URL);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +16,7 @@ require_once 'functions.php';
 		<meta name="viewport" content="width=device-width, initial-scale=2, shrink-to-fit=yes">
 		<script src="js/glm-ajax.js" type="text/javascript"></script>
 		<script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
-		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 		<script src="js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="js/jquery-ui.min.js" type="text/javascript"></script>
 		<script src="js/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
