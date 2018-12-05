@@ -11,7 +11,7 @@ function drawTable($conn,$clasa,$materia){
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="tabelNoteModalLongTitle">Editare nota</h5>
+          <h5 class="modal-title" id="tabelNoteModalLongTitle"></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -88,6 +88,14 @@ function drawTable($conn,$clasa,$materia){
           $i = $total['total'];
           if($i < 6){
             //echo $i;
+            if($i == $total['total']){
+              ?>
+              <td style="border: 1px solid black; cursor: pointer;" onclick="addGradeToTable(<?php echo $thead['user_id'];?>,'<?php echo $materia;?>')">
+                <i class="fas fa-plus"></i>
+              </td>
+              <?php
+              $i++;
+            }
             while($i < 6){
               ?>
               <td style="border: 1px solid black;"></td>
@@ -159,6 +167,7 @@ if(isset($_GET['clasa'])){
   }
   function editGradeInTabel(id){
     //console.log(id);
+    $("#tabelNoteModalLongTitle").text("Editare Nota");
     $.ajax({
       method: "GET",
       url: "scripts/php/tabelnotemodalData.php?nota=" + id,
@@ -166,6 +175,22 @@ if(isset($_GET['clasa'])){
       success: function(tabelNoteModalData){
         $("#tabel-note-modal-content").html(tabelNoteModalData);
         $("#note-table-modal-btn").click();
+      }
+    });
+  }
+  function addGradeToTable(user_id,materia){
+    $("#tabelNoteModalLongTitle").text("Adaugare Nota");
+    $.ajax({
+      method: "GET",
+      url: "scripts/php/addGradeFromTable.php?elev=" + user_id + "&materia=" + materia,
+      cache: false,
+      success: function(addGradeFromTableData){
+        //console.log(addGradeFromTableData);
+        $("#tabel-note-modal-content").html(addGradeFromTableData);
+        $("#note-table-modal-btn").click();
+      },
+      error: function(){
+        console.log("ups");
       }
     });
   }
