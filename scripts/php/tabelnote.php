@@ -6,6 +6,22 @@ function drawTable($conn,$clasa,$materia){
   //echo $sql;
   $result = $conn -> query($sql);
   ?>
+  <button type="button" id="note-table-modal-btn" class="hidden-modal-button" data-toggle="modal" data-target="#tabelNoteModal">Trigger</button>
+  <div class="modal fade" id="tabelNoteModal" tabindex="-1" role="dialog" aria-labelledby="tabelNoteModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="tabelNoteModalLongTitle">Editare nota</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id="tabel-note-modal-content">
+
+        </div>
+      </div>
+    </div>
+  </div>
   <table class="table table-bordered table-sm" style="border: 1px solid black; background-color: white;">
     <thead class="colors" style="border: 1px solid black;">
       <tr style="border: 1px solid black;">
@@ -47,18 +63,20 @@ function drawTable($conn,$clasa,$materia){
               $class = "";
             }
             ?>
-            <td style="cursor: pointer;<?php echo $class;?>; border: 1px solid black; padding: 0;" id="<?php echo $row['id'];?>"
+            <td style="cursor: pointer;<?php echo $class;?>; border: 1px solid black; padding: 0;" id="td-<?php echo $row['id'];?>"
                title="Detalii" data-container="body" data-toggle="popover" data-placement="top" data-content="Data: <?php echo $row['date'];?>">
                <table class="table table-sm table-borderless" style="padding: 0; margin: 0 !important;">
                  <thead>
                    <tr>
-                     <th><b><?php echo $row['nota'];?></b></th>
+                     <th><b id="th-<?php echo $row['id'];?>"><?php echo $row['nota'];?></b></th>
                      <th style="text-align: right; vertical-align: top;"><i class="fas fa-info" style="font-size: 0.7rem;" title="Apasati pentru mai multe informatii"></i></th>
                    </tr>
                  </thead>
                  <tbody>
                    <tr style="padding: 0 !important; margin: 0 !important;">
-                     <td style="text-align: left; position: relative; bottom: -5px;"><i class="fas fa-pencil-alt" style="font-size: 0.7rem;" title="Apasati pentru mai multe informatii"></i></td>
+                     <td style="text-align: left; position: relative; bottom: -5px;">
+                       <i id="<?php echo $row['id'];?>" onclick="editGradeInTabel(this.id)" class="fas fa-pencil-alt" style="font-size: 0.7rem;" title="Apasati pentru mai multe informatii"></i>
+                     </td>
                      <td></td>
                    </tr>
                  </tbody>
@@ -138,6 +156,18 @@ if(isset($_GET['clasa'])){
   });
   function triggerPopover(id){
     $("#" + id).click();
+  }
+  function editGradeInTabel(id){
+    //console.log(id);
+    $.ajax({
+      method: "GET",
+      url: "scripts/php/tabelnotemodalData.php?nota=" + id,
+      cache: false,
+      success: function(tabelNoteModalData){
+        $("#tabel-note-modal-content").html(tabelNoteModalData);
+        $("#note-table-modal-btn").click();
+      }
+    });
   }
   </script>
   <?php

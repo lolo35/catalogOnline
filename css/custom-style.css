@@ -28,3 +28,6 @@
 	height: 3rem;
 	border-radius: 25px;
 }
+.hidden-modal-button {
+	visibility: hidden;
+}
