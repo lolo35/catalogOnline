@@ -33,7 +33,7 @@ if(!isset($_SESSION['user'])){
 			<nav class="navbar navbar-toggleable-md navbar-light bg-faded colors" id="navbar">
 				<a class="navbar-brand" href="#" style="color: white; font-family: Arial; font-size: 1.8em; font-weight: bold;">
 					<!--<img src="images/logo-minister.png" width="90" height="60" class="rounded img-fluid" alt="brand icon">-->
-					<img src="images/e_blue.ico" width="44" height="44" alt="">
+					<img src="images/Logo catalog v1-1.png" width="360" height="60" alt="">
 				</a>
         <h4 id="header-text"></h4>
 				<div class="my-2 my-lg-0">

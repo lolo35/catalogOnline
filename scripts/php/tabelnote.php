@@ -6,6 +6,14 @@ function drawTable($conn,$clasa,$materia){
   //echo $sql;
   $result = $conn -> query($sql);
   ?>
+  <div class="row">
+    <div class="col-sm2">
+      <a href="#" onclick="event.preventDefault(); selectClasa('clasa-<?php echo $materia;?>-<?php echo $clasa;?>')">
+        <i class="fas fa-chevron-left"></i>
+        Inapoi
+      </a>
+    </div>
+  </div>
   <button type="button" id="note-table-modal-btn" class="hidden-modal-button" data-toggle="modal" data-target="#tabelNoteModal">Trigger</button>
   <div class="modal fade" id="tabelNoteModal" tabindex="-1" role="dialog" aria-labelledby="tabelNoteModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

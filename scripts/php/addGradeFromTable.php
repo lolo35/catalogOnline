@@ -4,7 +4,7 @@ require_once '../../conn.php';
 if(isset($_GET['elev']) && isset($_GET['materia'])){
   $elev = mysqli_real_escape_string($conn, $_GET['elev']);
   $materia = mysqli_real_escape_string($conn, $_GET['materia']);
-  $sql = "select `nume` from `elevi` where `user_id` = '$elev'";
+  $sql = "select `nume`,`clasa` from `elevi` where `user_id` = '$elev'";
   $result = $conn -> query($sql);
   $row = $result -> fetch_assoc();
   ?>
@@ -40,24 +40,40 @@ if(isset($_GET['elev']) && isset($_GET['materia'])){
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary" onclick="addGradeTabelModal()">Save</button>
+    <button type="button" id="close-add-gradeModal" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary" onclick="addGradeTabelModal('<?php echo $row['clasa'];?>')">Save</button>
   </div>
   <script type="text/javascript">
-    function addGradeTabelModal(){
+    function addGradeTabelModal(clasa){
       var nota = $("#addGrade-nota").val();
+      var materia = "<?php echo $materia;?>";
       $.ajax({
         method: "POST",
         url: "scripts/php/addGradeTabelModal.php",
         data: {
           post: "true",
           nota: nota,
-          materia: '<?php echo $materia;?>',
+          materia: materia,
           elev: '<?php echo $elev;?>'
         },
         cache: false,
         success: function(addGradeData){
           console.log(addGradeData);
+          if(addGradeData === "success"){
+            $("#tabelNoteModal").on('hidden.bs.modal', function(e){
+              $.ajax({
+                method: "GET",
+                url: "scripts/php/tabelnote.php?clasa=clasa-" + materia + "-" + clasa ,
+                cache: false,
+                success: function(renewNoteTableData){
+                  $("#main-content-div").html(renewNoteTableData);
+                },
+                error: function(renewNoteTableError){
+                  console.log(renewNoteTableError);
+                }
+              });
+            });
+          }
         },
         error: function(){
           console.log("ups");

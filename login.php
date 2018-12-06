@@ -22,44 +22,41 @@ require_once 'functions.php';
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
 		<link type="text/css" rel="stylesheet" href="css/custom-style.css" />
 		<link rel="stylesheet" href="css/all.css">
+		<style media="screen">
+			body{
+					background-image: url('images/login-background.png');
+					background-repeat: no-repeat;
+					background-position: top;
+					background-size: cover;
+			}
+		</style>
 	</head>
-	<body style="background-color: #EDEDED;">
+	<body>
 		<header class="text-center">
-			<nav class="navbar navbar-toggleable-md navbar-light bg-faded colors" id="navbar">
-				<a class="navbar-brand" href="#" style="color: white; font-family: Arial; font-size: 1.8em; font-weight: bold;">
-					<!--<img src="images/logo-minister.png" width="90" height="60" class="rounded img-fluid" alt="brand icon">-->
-					<img src="images/e_blue.ico" width="44" height="44" alt="">
-				</a>
-        <h4 id="header-text"></h4>
-				<div class="my-2 my-lg-0">
-					<!--<img src="images/logo-minister.jpg" class="rounded img-fluid" width="150" height="50" alt="Autoliv Logo">-->
-					<h2 style="color: white; font-family: Georgia Pro; border-bottom: 10px solid white;"><strong>Scoala Generala Nr. 2</strong></h2>
-				</div>
-			</nav>
 		</header>
     <div class="container-fluid">
-      <div class="row">
-        <div style="background-color: red;" class="col-sm-4 col-md-4 col-lg-4">
+      <div class="row" style="margin-top: 100px;">
+        <div class="col-sm-5 col-md-5 col-lg-5">
           <div class="container-fluid" style="padding: 0;">
             <div class="row">
               <div class="col-sm">
-                1
+
               </div>
             </div>
           </div>
         </div>
-        <div style="background-color: green;" class="col-sm-4 col-md-4 col-lg-4">
+        <div class="col-sm-2 col-md-2 col-lg-2">
           <div class="container-fluid" style="padding: 0;">
             <div class="row">
               <div class="col-sm">
-                <img src="images/login-logo.jpg" alt="Login Logo" class="img-fluid">
+                <img src="images/login-logo.png" alt="Login Logo" class="img-fluid">
               </div>
             </div>
             <form method="post">
               <div class="row">
                 <div class="col-sm">
                   <div class="form-group">
-                    <label for="user">Username</label>
+                    <label for="user"><i class="fas fa-user"></i>Username</label>
                     <input type="text" name="username" id="user" class="form-control" style="text-align: center;" required>
                   </div>
                 </div>
@@ -67,7 +64,7 @@ require_once 'functions.php';
               <div class="row">
                 <div class="col-sm">
                   <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password"><i class="fas fa-unlock-alt"></i>Password</label>
                     <input type="password" name="password" id="password" class="form-control" style="text-align: center;" required>
                   </div>
                 </div>
@@ -102,11 +99,11 @@ require_once 'functions.php';
             </form>
           </div>
         </div>
-        <div style="background-color: yellow;" class="col-sm-4 col-md-4 col-lg-4">
+        <div class="col-sm-5 col-md-5 col-lg-5">
           <div class="container-fluid" style="padding: 0;">
             <div class="row">
               <div class="col-sm">
-                3
+
               </div>
             </div>
           </div>
