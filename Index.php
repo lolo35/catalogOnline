@@ -101,14 +101,21 @@ $resLeftMenu = $conn -> query($sqlLeftMenu);
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm">
-            <?php echo $_SESSION['user'];?>
+            <div class="card" style="width: 14rem;">
+              <img class="card-img-top" src="images/<?php echo $_SESSION['user'];?>.jpg" alt="<?php echo $_SESSION['user'];?>">
+              <div class="card-body">
+                <h5 class="card-title"><?php echo $_SESSION['user'];?></h5>
+                <p class="card-text">Some more info here</p>
+                <form method="post">
+                  <button type="submit" name="logout-btn" class="btn btn-danger">Logout</button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="col-sm">
-            <form method="post">
-              <button type="submit" name="logout-btn" class="btn btn-danger">Logout</button>
-            </form>
+
           </div>
         </div>
         <div class="row">
