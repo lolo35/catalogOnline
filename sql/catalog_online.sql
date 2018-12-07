@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2018 at 02:31 PM
+-- Generation Time: Dec 07, 2018 at 02:51 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `catalog_online`
 --
+CREATE DATABASE IF NOT EXISTS `catalog_online` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `catalog_online`;
 
 -- --------------------------------------------------------
 
