@@ -13,7 +13,7 @@ function leftMenu(id){
   if(menuItem === "Grafic prezenta"){
     $.ajax({
       method: "GET",
-      url: "scripts/php/prezentaCharts.php",
+      url: "scripts/php/chartsMain.php",
       cache: false,
       success: function(chartsData){
         $("#main-content-div").hide("fold", {direction: "up"}, "slow", function(){
@@ -26,6 +26,49 @@ function leftMenu(id){
       }
     });
   }
+  if(menuItem === "Situatie absente"){
+    $.ajax({
+      method: "GET",
+      url: "scripts/php/situatieAbsente.php",
+      cache: false,
+      success: function(situatieAbsenteData){
+        var direction = randDirection();
+        console.log(direction);
+        $("#main-content-div").hide("fold", {direction: "left"}, "slow", function(){
+          $("#main-content-div").html("");
+          $("#main-content-div").html(situatieAbsenteData);
+          $("#main-content-div").show("fold", {direction: "right"}, "slow", function(){
+
+          });
+        });
+      },
+      error: function(situatieAbsenteData){
+        console.log(situatieAbsenteData);
+      }
+    });
+  }
+  if(menuItem === "Situatie corigente"){
+    $.ajax({
+      method: "GET",
+      url: "scripts/php/situatieCorigente.php",
+      cache: false,
+      success: function(situatieCorigenteData){
+        $("#main-content-div").hide("fold", {direction: "right"}, "slow", function(){
+          $("#main-content-div").html("");
+          $("#main-content-div").html(situatieCorigenteData);
+          $("#main-content-div").show("fold", {direction: "left"}, "slow", function(){
+
+          });
+        });
+      }
+    });
+  }
+}
+function randDirection(){
+  var directionArray = ["up","down","right","left"];
+  var randDirection = directionArray[(Math.random() * directionArray.length) | 0];
+  //console.log(randDirection);
+  return randDirection;
 }
 function makeActive(id){
   //$("a").removeClass("active");

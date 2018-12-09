@@ -102,7 +102,24 @@ $resLeftMenu = $conn -> query($sqlLeftMenu);
         <div class="row">
           <div class="col-sm">
             <div class="card" style="width: 14rem;">
-              <img class="card-img-top" src="images/<?php echo $_SESSION['user'];?>.jpg" alt="<?php echo $_SESSION['user'];?>">
+              <?php
+              //echo $_SESSION['user'].".jpg";
+              if(file_exists("images/" . $_SESSION['user'].".jpg")){
+                ?>
+                <img class="card-img-top" src="images/<?php echo $_SESSION['user'];?>.jpg" alt="<?php echo $_SESSION['user'];?>">
+                <?php
+              }else{
+                ?>
+                <form method="post" onsubmit="uploadProfilePic(event)" enctype="multipart/form-data">
+                  <input style="display: none;" onchange="submitProfilePic()" type="file" id="profile-pic-input">
+                  <button style="display: none;" type="submit" id="submit-profile-pic">submit</button>
+                </form>
+                <a style="cursor: pointer;" onclick="openFileBrowser()">
+                  <img class="card-img-top" src="images/no_user.png" alt="No User" title="Click pentru a incarca imagine de profil">
+                </a>
+                <?php
+              }
+              ?>
               <div class="card-body">
                 <h5 class="card-title"><?php echo $_SESSION['user'];?></h5>
                 <p class="card-text">Some more info here</p>
@@ -130,6 +147,36 @@ $resLeftMenu = $conn -> query($sqlLeftMenu);
   </div>
 </div>
 <script type="text/javascript" src="scripts/js/scripts.js"></script>
+<script type="text/javascript">
+function openFileBrowser(){
+  $("#profile-pic-input").click();
+}
+function submitProfilePic(){
+  $("#submit-profile-pic").submit();
+}
+function uploadProfilePic(e){
+  e.preventDefault();
+  var profilePic = new FormData();
+  profilePic.append('file', $("#profile-pic-input")[0].files[0]);
+  $.ajax({
+    method: "POST",
+    url: "scripts/php/uploadProfilePic.php",
+    data: profilePic,
+    processData: false,
+    contentType: false,
+    success: function(uploadProfilePicData, textStatus,jqXHR){
+      if(uploadProfilePicData === "success"){
+        window.location.reload();
+      }else{
+        console.log(uploadProfilePicData);
+      }
+    },
+    error: function (errorData){
+      console.log(errorData);
+    }
+  });
+}
+</script>
 <?php
 if(isset($_POST['logout-btn'])){
   session_destroy();

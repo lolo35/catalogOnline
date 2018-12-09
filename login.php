@@ -57,7 +57,7 @@ require_once 'functions.php';
                 <div class="col-sm">
                   <div class="form-group">
                     <label for="user"><i class="fas fa-user"></i>Username</label>
-                    <input type="text" name="username" id="user" class="form-control" style="text-align: center;" required>
+                    <input type="text" name="username" id="user" class="form-control" style="text-align: center;" required autofocus>
                   </div>
                 </div>
               </div>
