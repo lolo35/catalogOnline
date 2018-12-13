@@ -106,7 +106,7 @@ $resLeftMenu = $conn -> query($sqlLeftMenu);
               //echo $_SESSION['user'].".jpg";
               if(file_exists("images/" . $_SESSION['user'].".jpg")){
                 ?>
-                <img class="card-img-top" src="images/<?php echo $_SESSION['user'];?>.jpg" alt="<?php echo $_SESSION['user'];?>">
+                <img style="border-radius: 50%;" class="card-img-top" width="222" height="222" src="images/<?php echo $_SESSION['user'];?>.jpg" alt="<?php echo $_SESSION['user'];?>">
                 <?php
               }else{
                 ?>
@@ -115,14 +115,14 @@ $resLeftMenu = $conn -> query($sqlLeftMenu);
                   <button style="display: none;" type="submit" id="submit-profile-pic">submit</button>
                 </form>
                 <a style="cursor: pointer;" onclick="openFileBrowser()">
-                  <img class="card-img-top" src="images/no_user.png" alt="No User" title="Click pentru a incarca imagine de profil">
+                  <img style="border-radius: 50%;" class="card-img-top" src="images/no_user.png" alt="No User" title="Click pentru a incarca imagine de profil">
                 </a>
                 <?php
               }
               ?>
               <div class="card-body">
                 <h5 class="card-title"><?php echo $_SESSION['user'];?></h5>
-                <p class="card-text">Some more info here</p>
+                <p class="card-text">some more info here</p>
                 <form method="post">
                   <button type="submit" name="logout-btn" class="btn btn-danger">Logout</button>
                 </form>

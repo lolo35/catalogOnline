@@ -54,7 +54,15 @@ if(isset($_GET['id'])){
         </script>
         <div class="col-sm col-md col-lg">
           <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="images/<?php echo $row['user_id'];?>.jpg" height="220" width="286" alt="<?php echo $row['user_id'];?>-thumb-image">
+						<?php
+						if(file_exists("../../images/".$row['user_id'].".jpg")){
+							$ext = ".jpg";
+						}
+						if(file_exists("../../images/".$row['user_id'].".png")){
+							$ext = ".png";
+						}
+						?>
+            <img class="card-img-top" src="images/<?php echo $row['user_id'].$ext;?>" height="220" width="286" alt="<?php echo $row['user_id'];?>-thumb-image">
             <div class="card-body">
               <h5 class="card-title"><?php echo $row['nume'];?></h5>
               <p class="card-text">Adresa: <?php echo $row['adresa'];?></p>

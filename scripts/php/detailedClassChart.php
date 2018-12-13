@@ -33,7 +33,7 @@ while($row = $result -> fetch_assoc()){
       }
       arsort($prezentaArray);
       ?>
-      <canvas style="background-color: white;" id="absente-clasa-selected" width="400" height="300"></canvas>
+      <canvas style="background-color: white;" id="absente-clasa-selected" width="400" height="200"></canvas>
       <script>
         var ctx = document.getElementById("absente-clasa-selected").getContext('2d');
         var myChart = new Chart(ctx, {
@@ -70,11 +70,11 @@ while($row = $result -> fetch_assoc()){
                     ],
                     backgroundColor: [
                         '#3e95cd',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
+                        'rgba(54, 162, 235)',
+                        'rgba(255, 206, 86)',
+                        'rgba(75, 192, 192)',
+                        'rgba(153, 102, 255)',
+                        'rgba(255, 159, 64)'
                     ],
                     borderColor: [
                         '#3e95cd',
@@ -88,6 +88,13 @@ while($row = $result -> fetch_assoc()){
                 }]
             },
             options: {
+              title: {
+                display: true,
+                text: "Top 5 Absente Elevi"
+              },
+              legend: {
+                display: false
+              },
                 scales: {
                     yAxes: [{
                         ticks: {
