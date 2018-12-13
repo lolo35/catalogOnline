@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2018 at 02:51 PM
+-- Generation Time: Dec 13, 2018 at 02:47 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -23,6 +23,29 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `catalog_online` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `catalog_online`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `clase`
+--
+
+CREATE TABLE `clase` (
+  `id` int(11) NOT NULL,
+  `clasa` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `clase`
+--
+
+INSERT INTO `clase` (`id`, `clasa`) VALUES
+(1, '2-B'),
+(2, '5-A'),
+(3, '2-A'),
+(4, '3-A'),
+(5, '3-C'),
+(6, '6-C');
 
 -- --------------------------------------------------------
 
@@ -48,17 +71,17 @@ INSERT INTO `elevi` (`id`, `nume`, `user_id`, `clasa`, `adresa`, `nr_tel`) VALUE
 (2, 'Filimon Andreea', 2, '5-A', 'the nut house', 'don\'t call me'),
 (3, 'Sirbu Ramona', 3, '2-B', 'Str. Mocionilor', '[privat]'),
 (4, 'Sirbu Ramona', 4, '2-B', 'Str. Mocionilor', '[privat]'),
-(5, 'Ion Bumbu', 5, '2-B', 'Str. Mocionilor', '[privat]'),
-(6, 'Gheorghe Ventil', 6, '2-B', 'Str. Mocionilor', '[privat]'),
-(7, 'Super Man', 7, '2-B', 'Str. Mocionilor', '[privat]'),
-(8, 'Chris P. Bacon', 8, '2-B', 'Str. Mocionilor', '[privat]'),
-(9, 'Mike Litoris', 9, '2-B', 'Str. Mocionilor', '[privat]'),
-(10, 'Paul Twocock', 10, '2-B', 'Str. Mocionilor', '[privat]'),
-(11, 'Dick Long', 11, '2-B', 'Str. Mocionilor', '[privat]'),
-(12, 'Saad Maan', 12, '2-B', 'Str. Mocionilor', '[privat]'),
-(13, 'Strut Modest', 13, '2-B', 'Str. Mocionilor', '[privat]'),
-(14, 'Randunel Pisica\r\n', 14, '2-B', 'Str. Mocionilor', '[privat]'),
-(15, 'Cojocaru Tom-Mac-Bil-Bob-Constantin', 15, '2-A', 'Str. Mocionilor', '[privat]');
+(5, 'Ion Test', 5, '2-B', 'Str. Mocionilor', '[privat]'),
+(6, 'Gheorghe Test', 6, '2-B', 'Str. Mocionilor', '[privat]'),
+(7, 'John Smith', 7, '2-B', 'Str. Mocionilor', '[privat]'),
+(8, 'Chris P. Macon', 8, '2-B', 'Str. Mocionilor', '[privat]'),
+(9, 'Mike John', 9, '2-B', 'Str. Mocionilor', '[privat]'),
+(10, 'Paul Zweistender', 10, '2-B', 'Str. Mocionilor', '[privat]'),
+(11, 'Bruce Wayne', 11, '2-B', 'Str. Mocionilor', '[privat]'),
+(12, 'Clark Kent', 12, '2-B', 'Str. Mocionilor', '[privat]'),
+(13, 'Kara Danvers', 13, '2-B', 'Str. Mocionilor', '[privat]'),
+(14, 'Oliver Queen', 14, '2-B', 'Str. Mocionilor', '[privat]'),
+(15, 'Barry Allen', 15, '2-A', 'Str. Mocionilor', '[privat]');
 
 -- --------------------------------------------------------
 
@@ -126,13 +149,12 @@ CREATE TABLE `note` (
 --
 
 INSERT INTO `note` (`id`, `user_id`, `date`, `ora`, `nota`, `tip_nota`, `comentarii`) VALUES
-(1, 1, '2018-11-06', 'Istorie', 9, '2', ''),
+(1, 1, '2018-11-06', 'Istorie', 9, '8', ''),
 (2, 1, '2018-11-07', 'Istorie', 6, '1', 'pentru ca e bun de dracu asta...'),
 (4, 1, '2018-11-07', 'Istorie', 9, '1', 'regtfds'),
 (6, 3, '2018-11-07', 'Istorie', 11, '1', ''),
 (7, 1, '2018-11-13', 'Istorie', 7, '1', 'bun de dracu asta...'),
 (8, 1, '2018-11-26', 'Istorie', 10, '1', ''),
-(9, 1, '2018-11-26', 'Istorie', 9, '1', ''),
 (12, 4, '2018-11-28', 'Istorie', 7, '1', ''),
 (13, 5, '2018-12-01', 'Istorie', 9, '1', ''),
 (14, 5, '2018-12-01', 'Istorie', 2, '1', ''),
@@ -141,7 +163,14 @@ INSERT INTO `note` (`id`, `user_id`, `date`, `ora`, `nota`, `tip_nota`, `comenta
 (18, 3, '2018-12-06', 'Istorie', 3, '1', ''),
 (19, 4, '2018-12-06', 'Istorie', 7, '1', ''),
 (20, 6, '2018-12-06', 'Istorie', 6, '1', ''),
-(21, 6, '2018-12-06', 'Istorie', 2, '1', '');
+(21, 6, '2018-12-06', 'Istorie', 2, '1', ''),
+(22, 6, '2018-12-06', 'Istorie', 6, '2', ''),
+(23, 7, '2018-12-12', 'Istorie', 9, '1', ''),
+(24, 9, '2018-12-13', 'Istorie', 10, '', ''),
+(25, 7, '2018-12-13', 'Istorie', 10, '1', ''),
+(26, 7, '2018-12-13', 'Istorie', 10, '1', ''),
+(27, 7, '2018-12-13', 'Istorie', 9, '1', ''),
+(28, 7, '2018-12-13', 'Istorie', 9, '1', '');
 
 -- --------------------------------------------------------
 
@@ -314,7 +343,72 @@ INSERT INTO `prezenta` (`id`, `nume`, `user_id`, `ora`, `date`, `prezenta`) VALU
 (136, 'Dick Long', 11, 'Istorie', '2018-12-07', 1),
 (137, 'Saad Maan', 12, 'Istorie', '2018-12-07', 1),
 (138, 'Strut Modest', 13, 'Istorie', '2018-12-07', 1),
-(139, 'Randunel Pisica\r\n', 14, 'Istorie', '2018-12-07', 1);
+(139, 'Randunel Pisica\r\n', 14, 'Istorie', '2018-12-07', 1),
+(140, 'Filimon Raul', 1, 'Istorie', '2018-12-08', 0),
+(141, 'Ion Bumbu', 5, 'Istorie', '2018-12-08', 1),
+(142, 'Sirbu Ramona', 3, 'Istorie', '2018-12-08', 0),
+(143, 'Sirbu Ramona', 4, 'Istorie', '2018-12-08', 1),
+(144, 'Super Man', 7, 'Istorie', '2018-12-08', 1),
+(145, 'Gheorghe Ventil', 6, 'Istorie', '2018-12-08', 1),
+(146, 'Chris P. Bacon', 8, 'Istorie', '2018-12-08', 1),
+(147, 'Mike Litoris', 9, 'Istorie', '2018-12-08', 1),
+(148, 'Paul Twocock', 10, 'Istorie', '2018-12-08', 1),
+(149, 'Dick Long', 11, 'Istorie', '2018-12-08', 1),
+(150, 'Saad Maan', 12, 'Istorie', '2018-12-08', 1),
+(151, 'Strut Modest', 13, 'Istorie', '2018-12-08', 1),
+(152, 'Randunel Pisica\r\n', 14, 'Istorie', '2018-12-08', 1),
+(153, 'Filimon Raul', 1, 'Istorie', '2018-12-10', 1),
+(154, 'Gheorghe Ventil', 6, 'Istorie', '2018-12-10', 1),
+(155, 'Super Man', 7, 'Istorie', '2018-12-10', 1),
+(156, 'Ion Bumbu', 5, 'Istorie', '2018-12-10', 1),
+(157, 'Sirbu Ramona', 4, 'Istorie', '2018-12-10', 1),
+(158, 'Sirbu Ramona', 3, 'Istorie', '2018-12-10', 1),
+(159, 'Chris P. Bacon', 8, 'Istorie', '2018-12-10', 1),
+(160, 'Mike Litoris', 9, 'Istorie', '2018-12-10', 1),
+(161, 'Paul Twocock', 10, 'Istorie', '2018-12-10', 1),
+(162, 'Dick Long', 11, 'Istorie', '2018-12-10', 1),
+(163, 'Saad Maan', 12, 'Istorie', '2018-12-10', 1),
+(164, 'Strut Modest', 13, 'Istorie', '2018-12-10', 1),
+(165, 'Randunel Pisica\r\n', 14, 'Istorie', '2018-12-10', 1),
+(166, 'Filimon Raul', 1, 'Istorie', '2018-12-11', 1),
+(167, 'Ion Bumbu', 5, 'Istorie', '2018-12-11', 1),
+(168, 'Sirbu Ramona', 3, 'Istorie', '2018-12-11', 1),
+(169, 'Super Man', 7, 'Istorie', '2018-12-11', 1),
+(170, 'Gheorghe Ventil', 6, 'Istorie', '2018-12-11', 1),
+(171, 'Sirbu Ramona', 4, 'Istorie', '2018-12-11', 1),
+(172, 'Chris P. Bacon', 8, 'Istorie', '2018-12-11', 1),
+(173, 'Mike Litoris', 9, 'Istorie', '2018-12-11', 1),
+(174, 'Dick Long', 11, 'Istorie', '2018-12-11', 1),
+(175, 'Strut Modest', 13, 'Istorie', '2018-12-11', 1),
+(176, 'Paul Twocock', 10, 'Istorie', '2018-12-11', 1),
+(177, 'Saad Maan', 12, 'Istorie', '2018-12-11', 1),
+(178, 'Randunel Pisica\r\n', 14, 'Istorie', '2018-12-11', 1),
+(179, 'Filimon Raul', 1, 'Istorie', '2018-12-12', 1),
+(180, 'Sirbu Ramona', 3, 'Istorie', '2018-12-12', 1),
+(181, 'Gheorghe Ventil', 6, 'Istorie', '2018-12-12', 1),
+(182, 'Super Man', 7, 'Istorie', '2018-12-12', 1),
+(183, 'Sirbu Ramona', 4, 'Istorie', '2018-12-12', 1),
+(184, 'Ion Bumbu', 5, 'Istorie', '2018-12-12', 1),
+(185, 'Chris P. Bacon', 8, 'Istorie', '2018-12-12', 1),
+(186, 'Mike Litoris', 9, 'Istorie', '2018-12-12', 1),
+(187, 'Dick Long', 11, 'Istorie', '2018-12-12', 1),
+(188, 'Paul Twocock', 10, 'Istorie', '2018-12-12', 1),
+(189, 'Saad Maan', 12, 'Istorie', '2018-12-12', 1),
+(190, 'Strut Modest', 13, 'Istorie', '2018-12-12', 1),
+(191, 'Randunel Pisica\r\n', 14, 'Istorie', '2018-12-12', 1),
+(192, 'Gheorghe Test', 6, 'Istorie', '2018-12-13', 1),
+(193, 'Sirbu Ramona', 3, 'Istorie', '2018-12-13', 1),
+(194, 'Ion Test', 5, 'Istorie', '2018-12-13', 1),
+(195, 'Sirbu Ramona', 4, 'Istorie', '2018-12-13', 0),
+(196, 'John Smith', 7, 'Istorie', '2018-12-13', 0),
+(197, 'Filimon Raul', 1, 'Istorie', '2018-12-13', 1),
+(198, 'Chris P. Macon', 8, 'Istorie', '2018-12-13', 1),
+(199, 'Mike John', 9, 'Istorie', '2018-12-13', 1),
+(200, 'Clark Kent', 12, 'Istorie', '2018-12-13', 1),
+(201, 'Bruce Wayne', 11, 'Istorie', '2018-12-13', 1),
+(202, 'Paul Zweistender', 10, 'Istorie', '2018-12-13', 0),
+(203, 'Kara Danvers', 13, 'Istorie', '2018-12-13', 1),
+(204, 'Oliver Queen', 14, 'Istorie', '2018-12-13', 1);
 
 -- --------------------------------------------------------
 
@@ -343,6 +437,12 @@ INSERT INTO `users` (`id`, `user_id`, `username`, `pass`, `salt`, `type`, `email
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `clase`
+--
+ALTER TABLE `clase`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `elevi`
@@ -391,6 +491,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `clase`
+--
+ALTER TABLE `clase`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `elevi`
 --
 ALTER TABLE `elevi`
@@ -412,7 +518,7 @@ ALTER TABLE `left_menu`
 -- AUTO_INCREMENT for table `note`
 --
 ALTER TABLE `note`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `ore`
@@ -424,7 +530,7 @@ ALTER TABLE `ore`
 -- AUTO_INCREMENT for table `prezenta`
 --
 ALTER TABLE `prezenta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=205;
 
 --
 -- AUTO_INCREMENT for table `users`
